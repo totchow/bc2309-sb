@@ -20,6 +20,7 @@ public class Coin implements Comparable<Coin>{
   private String symbol;
   private String name;
   private String image;
+  @JsonProperty(value = "currentPrice")
   private double current_price;
   @JsonProperty(value = "marketCap")
   private long market_Cap;
@@ -64,6 +65,10 @@ public class Coin implements Comparable<Coin>{
   @JsonProperty(value = "lastUpdated")
   private String last_updated;
 
+  @JsonProperty(value = "current_price")
+  public void setCurrentPrice(double cprice) {
+    this.current_price = cprice;
+  }
 
   @JsonProperty(value = "market_cap")
   public void setMarketCap(long cap) {

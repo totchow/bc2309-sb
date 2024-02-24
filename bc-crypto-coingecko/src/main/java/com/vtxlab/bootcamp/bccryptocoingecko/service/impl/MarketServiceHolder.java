@@ -33,11 +33,11 @@ public class MarketServiceHolder implements MarketService {
   private RedisHelper redisHelper;
 
   @Override
-  public List<Coin> getCoins(String currency, List<CoinIdDTO> coinIdDTOs) 
+  public List<Coin> getCoins(String currency, List<String> coinIds) 
     throws JsonProcessingException{
 
-    String ids = CoinIdDTO.uriString(coinIdDTOs); //form uri ids string e.g. "&ids=bitcoin,ehtereum"
-    
+    String ids = "&ids=" + String.join(",",coinIds);
+
     String coingeckoUri = domain + uri +
             "?vs_currency="+currency
             +ids
@@ -56,13 +56,13 @@ public class MarketServiceHolder implements MarketService {
 
         List<Coin> coins = new ArrayList<>();
 
-        if (coinIdDTOs == null) { // if no ids input , get all from redis  
+        if (coinIds.isEmpty()) { // if no ids input , get all from redis  
           coins =  redisHelper.getAll(Coin.class);
         } else {
 
-            for (CoinIdDTO c : coinIdDTOs) { // get each id input from redis
+            for (String c : coinIds) { // get each id input from redis
               coins.add(redisHelper.get("crypto:coingecko:coins-markets:"+ currency + ":" 
-                  + c.getCoinId(), Coin.class));          
+                  + c, Coin.class));          
             }
         }
       

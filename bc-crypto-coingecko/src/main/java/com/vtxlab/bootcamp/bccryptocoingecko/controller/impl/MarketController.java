@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.vtxlab.bootcamp.bccryptocoingecko.controller.MarketOperation;
-import com.vtxlab.bootcamp.bccryptocoingecko.dto.request.CoinIdDTO;
 import com.vtxlab.bootcamp.bccryptocoingecko.infra.ApiResponse;
 import com.vtxlab.bootcamp.bccryptocoingecko.infra.Syscode;
 import com.vtxlab.bootcamp.bccryptocoingecko.model.Coin;
@@ -20,10 +19,10 @@ public class MarketController implements MarketOperation{
   MarketService marketService;
 
   @Override
-  public ApiResponse<List<Coin>> getCoins(String currency, List<CoinIdDTO> coinIdDTOs) 
+  public ApiResponse<List<Coin>> getCoins(String currency, List<String> coinIds) 
   throws JsonProcessingException{
     
-    List<Coin> coins = marketService.getCoins(currency,coinIdDTOs);
+    List<Coin> coins = marketService.getCoins(currency,coinIds);
 
     return ApiResponse.<List<Coin>>builder().status(Syscode.OK).data(coins).build();
 

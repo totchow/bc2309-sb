@@ -1,6 +1,5 @@
 package com.vtxlab.bootcamp.bccryptocoingecko.infra;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class BcUtil {
@@ -15,11 +14,6 @@ public class BcUtil {
       .toUriString(); // handle special character, \ ://
   }
 
-  // public static String coingeckoUrl(String currency, String ids) {
-  //   return domain + uri +
-  //           "?vs_currency="+currency+
-  //           "&ids="+ids+
-  //           key;
-  // }
+
 
 }

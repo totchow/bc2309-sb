@@ -7,6 +7,6 @@ import com.vtxlab.bootcamp.bccryptocoingecko.model.Coin;
 
 public interface MarketService {
   
-  List<Coin> getCoins(String currency, List<CoinIdDTO> coinIdDTOs) 
+  List<Coin> getCoins(String currency, List<String> coinIds) 
     throws JsonProcessingException;
 }
