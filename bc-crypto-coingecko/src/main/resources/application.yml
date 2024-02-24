@@ -1,0 +1,6 @@
+
+api: 
+  coingecko:
+    domain: "https://api.coingecko.com/api/v3"
+    endpoints:
+      coins : "/coins/markets"
