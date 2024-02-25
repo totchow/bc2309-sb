@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.vtxlab.bootcamp.bccryptocoingecko.dto.request.CoinIdDTO;
 import com.vtxlab.bootcamp.bccryptocoingecko.infra.RedisHelper;
 import com.vtxlab.bootcamp.bccryptocoingecko.model.Coin;
 import com.vtxlab.bootcamp.bccryptocoingecko.service.MarketService;

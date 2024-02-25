@@ -17,6 +17,7 @@ public class CoinIdValidator implements ConstraintValidator<CoinIdCheck, List<St
     if (ids.size() == 0)
     return true;
     
+    // get full valid coin-id list
     List<String> coinIds = appStartRunner.getCoinIds();
 
     //check if every single input id is valid
