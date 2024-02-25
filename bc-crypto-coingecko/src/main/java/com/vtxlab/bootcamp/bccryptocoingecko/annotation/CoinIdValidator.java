@@ -21,7 +21,7 @@ public class CoinIdValidator implements ConstraintValidator<CoinIdCheck, List<St
 
     //check if every single input id is valid
     for (String id : ids) {
-      if (!coinIds.contains(id))
+      if (!coinIds.contains(id.trim()))
         return false;
     }
 

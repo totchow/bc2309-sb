@@ -10,7 +10,7 @@ public class CurrencyValidator implements ConstraintValidator<CurrencyCheck, Str
   @Override
   public boolean isValid(String currency, ConstraintValidatorContext context) {
   
-    return Currency.checkCurrency(currency);
+    return Currency.checkCurrency(currency.toLowerCase());
   }
 
 }
