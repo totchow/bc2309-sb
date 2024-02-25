@@ -45,7 +45,10 @@ public class RedisHelper {
   // User2 user = RedisHelper().get("vincent", User2.class);
   public <T> T get(String key, Class<T> clazz) throws JsonProcessingException{
     String serialized = redisTemplate.opsForValue().get(key); // <String, String>
+
+    if (serialized != null)
     return objectMapper.readValue(serialized, clazz);
+    else return null;
   }
 
   public <T> List<T> getAll(Class<T> clazz) throws JsonProcessingException, JsonMappingException{

@@ -49,30 +49,34 @@ public class MarketServiceHolder implements MarketService {
         redisHelper.set("crypto:coingecko:coins-markets:"+ currency + ":" + c.getId()
            , c, 60);
       }
-
       return Arrays.asList(coins);
-    } catch (RestClientException e) { // try get from Redis if cannot get from coingecko
+
+    } catch (RestClientException e) { // get from Redis if cannot get from coingecko
 
         List<Coin> coins = new ArrayList<>();
 
-        if (coinIds.isEmpty()) { // if no ids input , get all from redis  
-          coins =  redisHelper.getAll(Coin.class);
-        } else {
+        if (coinIds.isEmpty()) { // if no ids specified , return all data from redis  
+          coins = redisHelper.getAll(Coin.class);
 
+        if (coins.isEmpty())  // if no result in redis, throw
+          throw new RestClientException("RestClientException - coingecko service is unavailable");
+  
+        } else {
             for (String c : coinIds) { // get each id input from redis
-              coins.add(redisHelper.get("crypto:coingecko:coins-markets:"+ currency + ":" 
-                  + c, Coin.class));          
+              Coin c1 = redisHelper.get("crypto:coingecko:coins-markets:"+ currency + ":" 
+              + c, Coin.class);
+
+              if (c1 != null) { // key is found
+                coins.add(c1);
+              } else { // key not found in redis, throw
+                throw new RestClientException("RestClientException - coingecko service is unavailable");
+              }
             }
         }
       
-        if (coins.isEmpty()) { // if no data in redis, throw
-          throw new RestClientException("RestClientException - coingecko service is unavailable");
-        } else {
-          Collections.sort(coins);
-          return coins;
-        }
-    }
-
-  }
-
+        Collections.sort(coins);
+        return coins;
+      }
+   }
 }
+
