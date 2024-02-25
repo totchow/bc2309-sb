@@ -34,7 +34,7 @@ public class MarketControllerTest {
   void testgetcoins() throws Exception {
     List<String> ids = new ArrayList<>();
     ids.add("bitcoin");
-    //coinIdDTOs.add(new CoinIdDTO("ethereum"));
+    ids.add("ethereum");
 
     Coin btc = Coin.builder()
                 .id("bitcoin") //
@@ -97,12 +97,12 @@ public class MarketControllerTest {
     coins.add(btc);
     coins.add(eth);
 
-    // mock appStartRunner to simulate server start to get coinIdlist to pass validator
+    // mock appStartRunner to simulate server start and get coinIdlist to pass validator
     Mockito.when(appStartRunner.getCoinIds()).thenReturn(List.of("bitcoin","ethereum")); 
 
     Mockito.when(marketService.getCoins("usd", ids)).thenReturn(coins);
 
-    mockMvc.perform(get("/crypto/coingecko/api/v1/coins?currency=usd&ids=bitcoin"))
+    mockMvc.perform(get("/crypto/coingecko/api/v1/coins?currency=usd&ids=bitcoin,ethereum"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON)) // assert
     .andExpect(jsonPath("$.code").value("000000"))
     .andExpect(jsonPath("$.message").value("OK"))
