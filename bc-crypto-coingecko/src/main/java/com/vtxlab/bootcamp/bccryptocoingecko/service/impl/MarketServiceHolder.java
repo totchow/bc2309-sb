@@ -53,7 +53,7 @@ public class MarketServiceHolder implements MarketService {
 
     } catch (RestClientException e) { // get from Redis if cannot get from coingecko
 
-        List<Coin> coins = new ArrayList<>();
+         List<Coin> coins = new ArrayList<>();
 
         if (coinIds.isEmpty()) { // if no ids specified , return all data from redis  
           coins = redisHelper.getAll(Coin.class);
@@ -72,11 +72,11 @@ public class MarketServiceHolder implements MarketService {
                 throw new RestClientException("RestClientException - coingecko service is unavailable");
               }
             }
-        }
+         }
       
         Collections.sort(coins);
         return coins;
-      }
+    }
    }
 }
 

@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.vtxlab.bootcamp.bccryptocoingecko.annotation.CoinIdCheck;
 import com.vtxlab.bootcamp.bccryptocoingecko.annotation.CurrencyCheck;
+import com.vtxlab.bootcamp.bccryptocoingecko.dto.response.CoinDTO;
 import com.vtxlab.bootcamp.bccryptocoingecko.infra.ApiResponse;
-import com.vtxlab.bootcamp.bccryptocoingecko.model.Coin;
 
 @Validated
 public interface MarketOperation {
   
   @GetMapping(value = "/coins")
   @ResponseStatus(value = HttpStatus.OK) 
-  ApiResponse<List<Coin>> getCoins(@CurrencyCheck @RequestParam(required = true) String currency,
+  ApiResponse<List<CoinDTO>> getCoins(@CurrencyCheck @RequestParam(required = true) String currency,
     @CoinIdCheck @RequestParam(value = "ids", required = false, defaultValue = "") List<String> coinIds)
     throws JsonProcessingException;
 }
