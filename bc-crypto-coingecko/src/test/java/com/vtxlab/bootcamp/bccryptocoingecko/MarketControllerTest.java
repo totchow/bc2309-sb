@@ -42,8 +42,8 @@ public class MarketControllerTest {
                 .name("Bitcoin") //
                 .image("https://...") //
                 .current_price(50123) //
-                .market_Cap(987654321000l) //
-                .market_Cap_Rank(1) //
+                .market_cap(987654321000l) //
+                .market_cap_rank(1) //
                 .fully_diluted_valuation(1234567890123l) //
                 .total_volume(22081148079l) //
                 .high_24h(51234) //
@@ -71,8 +71,8 @@ public class MarketControllerTest {
                 .name("Ethereum") //
                 .image("https://...") //
                 .current_price(2992.78) //
-                .market_Cap(360242205907l) //
-                .market_Cap_Rank(2) //
+                .market_cap(360242205907l) //
+                .market_cap_rank(2) //
                 .fully_diluted_valuation(360242205907l) //
                 .total_volume(10965276172l) //
                 .high_24h(2999.94) //
