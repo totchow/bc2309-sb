@@ -18,11 +18,10 @@ public class RoiDTO {
   private String currency;
   private double percentage;
 
-  public RoiDTO(Roi roi) {
+  public static RoiDTO RoiCreate(Roi roi) {
     if (roi != null) {
-      this.times = roi.getTimes();
-      this.currency = roi.getCurrency();
-      this.percentage = roi.getPercentage();
-    }
+      return new RoiDTO(roi.getTimes(), roi.getCurrency(), roi.getPercentage());
+    } else
+    return null;
   }
 }

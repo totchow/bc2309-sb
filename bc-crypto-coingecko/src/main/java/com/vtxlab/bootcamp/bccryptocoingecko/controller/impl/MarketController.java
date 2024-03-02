@@ -1,5 +1,6 @@
 package com.vtxlab.bootcamp.bccryptocoingecko.controller.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,8 @@ public class MarketController implements MarketOperation {
                   .name(e.getName())
                   .image(e.getImage())
                   .current_price(e.getCurrent_price())
-                  .market_cap(e.getMarket_Cap())
-                  .market_cap_rank(e.getMarket_Cap_Rank())
+                  .market_cap(e.getMarket_cap())
+                  .market_cap_rank(e.getMarket_cap_rank())
                   .fully_diluted_valuation(e.getFully_diluted_valuation())
                   .total_volume(e.getTotal_volume())
                   .high_24h(e.getHigh_24h())
@@ -53,10 +54,12 @@ public class MarketController implements MarketOperation {
                   .atl(e.getAtl())
                   .atl_change_percentage(e.getAtl_change_percentage())
                   .atl_date(e.getAth_date())
-                  .roi(new RoiDTO(e.getRoi()))
+                  .roi(RoiDTO.RoiCreate(e.getRoi()))
                   .last_updated(e.getLast_updated())
                   .build();}
                 ).collect(Collectors.toList());
+
+    Collections.sort(coindtos);
 
     return ApiResponse.<List<CoinDTO>>builder().status(Syscode.OK).data(coindtos).build();
 
