@@ -1,0 +1,9 @@
+server:
+  port: 8091
+
+api: 
+  finnhub:
+    domain: "https://finnhub.io/api/v1"
+    endpoints:
+      quote : "/quote"
+      profile2 : "/stock/profile2"
