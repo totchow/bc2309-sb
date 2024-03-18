@@ -1,0 +1,25 @@
+#spring.application.name=bc-product-data
+
+server:
+  port: 8092
+
+database:
+  postgres: "db_bc_crypto_stock"
+
+spring.datasource:
+  # driverClassName: "org.hibernate.dialect.PostgreSQLDialect"
+  driverClassName: "org.postgresql.Driver"
+  url: "jdbc:postgresql://localhost:5432/${database.postgres}"
+  username: "postgres"
+  password: "admin1234"
+
+spring.jpa:
+  show-sql: true
+  hibernate.ddl-auto: update # update
+
+api:
+  coingecko:
+    coinsmarket: "http://localhost:8090/crypto/coingecko/api/v1/coins?currency=usd&ids="
+  finnhub:
+    stockquote: "http://localhost:8091/stock/finnhub/api/v1/quote?symbol="
+    stockprofile2: "http://localhost:8091/stock/finnhub/api/v1/profile2?symbol="
