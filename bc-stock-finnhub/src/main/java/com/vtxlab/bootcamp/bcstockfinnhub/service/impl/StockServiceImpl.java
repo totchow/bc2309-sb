@@ -15,7 +15,10 @@ import com.vtxlab.bootcamp.bcstockfinnhub.service.StockService;
 @Service
 public class StockServiceImpl implements StockService{
 
-  private static final String token = "&token=cnhebj9r01qhlslit4t0cnhebj9r01qhlslit4tg";
+  //private static final String token = "&token=cnhebj9r01qhlslit4t0cnhebj9r01qhlslit4tg";
+
+  @Value("${api.finnhub.token}")
+  private String token;
 
   @Value("${api.finnhub.domain}")
   private String domain;
@@ -25,6 +28,12 @@ public class StockServiceImpl implements StockService{
 
   @Value("${api.finnhub.endpoints.profile2}")
   private String profile2Uri;
+
+  @Value("${redis.key.stock.quote}")
+  private String redisQuoteKey;
+
+  @Value("${redis.key.stock.profile2}")
+  private String redisProfile2Key;
 
   @Autowired
   private RestTemplate restTemplate;
@@ -44,13 +53,13 @@ public class StockServiceImpl implements StockService{
     try { // get data from Finnhub
       Quote quote = restTemplate.getForObject(FinnhubQuoteUrl, Quote.class);
       
-      redisHelper.set("stock:finnhub:quote:" + symbol, quote, 60);
+      redisHelper.set(redisQuoteKey + symbol, quote, 60);
 
       return quote;
 
     } catch (RestClientException e) { // get from Redis if cannot get from coingecko
 
-      Quote quote = redisHelper.get("stock:finnhub:quote:" + symbol, Quote.class);
+      Quote quote = redisHelper.get(redisQuoteKey + symbol, Quote.class);
 
         if (quote == null)  // if no result in redis, throw
           throw new RestClientException("RestClientException - Finnhub service is unavailable");
@@ -71,13 +80,13 @@ public class StockServiceImpl implements StockService{
     try { // get data from Finnhub
       Profile2 profile2 = restTemplate.getForObject(FinnhubProfile2Url, Profile2.class);
       
-      redisHelper.set("stock:finnhub:profile2:" + symbol, profile2, 60);
+      redisHelper.set(redisProfile2Key + symbol, profile2, 60);
 
       return profile2;
 
     } catch (RestClientException e) { // get from Redis if cannot get from coingecko
 
-      Profile2 profile2 = redisHelper.get("stock:finnhub:profile2:" + symbol, Profile2.class);
+      Profile2 profile2 = redisHelper.get(redisProfile2Key + symbol, Profile2.class);
 
         if (profile2 == null)  // if no result in redis, throw
           throw new RestClientException("RestClientException - Finnhub service is unavailable");

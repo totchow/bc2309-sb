@@ -7,3 +7,10 @@ api:
     endpoints:
       quote : "/quote"
       profile2 : "/stock/profile2"
+    token: "&token=cnhebj9r01qhlslit4t0cnhebj9r01qhlslit4tg" 
+
+redis:
+  key:
+    stock:
+      quote: "stock:finnhub:quote:"
+      profile2: "stock:finnhub:profile2:"
