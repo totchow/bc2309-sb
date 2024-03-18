@@ -51,10 +51,10 @@ public class RedisHelper {
     else return null;
   }
 
-  public <T> List<T> getAll(Class<T> clazz) throws JsonProcessingException, JsonMappingException{
+  public <T> List<T> getAll(String key, Class<T> clazz) throws JsonProcessingException, JsonMappingException{
     List<T> all = new ArrayList<>();
 
-    Set<String> keys = redisTemplate.keys("*");
+    Set<String> keys = redisTemplate.keys(key + "*");
     List<String> values = redisTemplate.opsForValue().multiGet(keys);
 
     for (String s: values) {

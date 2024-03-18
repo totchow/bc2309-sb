@@ -53,7 +53,7 @@ public class MarketController implements MarketOperation {
                   .ath_date(e.getAth_date())
                   .atl(e.getAtl())
                   .atl_change_percentage(e.getAtl_change_percentage())
-                  .atl_date(e.getAth_date())
+                  .atl_date(e.getAtl_date())
                   .roi(RoiDTO.RoiCreate(e.getRoi()))
                   .last_updated(e.getLast_updated())
                   .build();}

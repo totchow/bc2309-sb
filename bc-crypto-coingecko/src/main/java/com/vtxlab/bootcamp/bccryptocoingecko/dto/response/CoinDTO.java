@@ -19,7 +19,7 @@ public class CoinDTO implements Comparable<CoinDTO>{
   @JsonProperty(value = "marketCap")
   private long market_cap;
   @JsonProperty(value = "marketCapRank")
-  private long market_cap_rank;
+  private int market_cap_rank;
   @JsonProperty(value = "fullyDilutedValuation")
   private long fully_diluted_valuation;
   @JsonProperty(value = "totalVolume")

@@ -6,3 +6,8 @@ api:
     domain: "https://api.coingecko.com/api/v3"
     endpoints:
       coins : "/coins/markets"
+    key: "&x_cg_demo_api_key=CG-WMdqgRJLLNwTQStejmEWZjSz"
+
+redis:
+  key:
+    coins: "crypto:coingecko:coins-markets:"

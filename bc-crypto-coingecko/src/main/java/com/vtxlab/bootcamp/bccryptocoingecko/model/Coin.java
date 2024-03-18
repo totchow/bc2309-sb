@@ -21,7 +21,7 @@ public class Coin implements Comparable<Coin>{
   private String image;
   private double current_price;
   private long market_cap;
-  private long market_cap_rank;
+  private int market_cap_rank;
   private long fully_diluted_valuation;
   private long total_volume;
   private double high_24h;

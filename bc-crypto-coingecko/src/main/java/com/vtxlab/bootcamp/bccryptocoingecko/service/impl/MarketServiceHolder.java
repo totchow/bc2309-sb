@@ -17,13 +17,19 @@ import com.vtxlab.bootcamp.bccryptocoingecko.service.MarketService;
 @Service
 public class MarketServiceHolder implements MarketService {
   
-  private static final String key = "&x_cg_demo_api_key=CG-WMdqgRJLLNwTQStejmEWZjSz";
+  //private static final String key = "&x_cg_demo_api_key=CG-WMdqgRJLLNwTQStejmEWZjSz";
+
+  @Value("${api.coingecko.key}")
+  private String coinkey;
 
   @Value("${api.coingecko.domain}")
   private String domain;
 
   @Value("${api.coingecko.endpoints.coins}")
   private String uri;
+
+  @Value("${redis.key.coins}")
+  private String rediskey;
 
   @Autowired
   private RestTemplate restTemplate;
@@ -40,30 +46,30 @@ public class MarketServiceHolder implements MarketService {
     String coingeckoUri = domain + uri +
             "?vs_currency="+currency
             +ids
-            +key;
+            +coinkey;
       
     try { // get data from coingecko
       Coin[] coins = restTemplate.getForObject(coingeckoUri, Coin[].class);
       
       for (Coin c : coins) { // save to Redis, 60s expiry
-        redisHelper.set("crypto:coingecko:coins-markets:"+ currency + ":" + c.getId()
+        redisHelper.set(rediskey + currency + ":" + c.getId()
            , c, 60);
       }
       return Arrays.asList(coins);
 
     } catch (RestClientException e) { // get from Redis if cannot get from coingecko
 
-         List<Coin> coins = new ArrayList<>();
+        List<Coin> coins = new ArrayList<>();
 
         if (coinIds.isEmpty()) { // if no ids specified , return all data from redis  
-          coins = redisHelper.getAll(Coin.class);
+          coins = redisHelper.getAll(rediskey + currency + ":", Coin.class);
 
         if (coins.isEmpty())  // if no result in redis, throw
           throw new RestClientException("RestClientException - coingecko service is unavailable");
   
         } else {
             for (String c : coinIds) { // get each id input from redis
-              Coin c1 = redisHelper.get("crypto:coingecko:coins-markets:"+ currency + ":" 
+              Coin c1 = redisHelper.get(rediskey + currency + ":" 
               + c, Coin.class);
 
               if (c1 != null) { // key is found
