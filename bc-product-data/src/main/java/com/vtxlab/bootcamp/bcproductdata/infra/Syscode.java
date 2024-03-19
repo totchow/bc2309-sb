@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum Syscode {
   OK("000000", "OK"),
   NOTFOUND("000001", "Resource Not Found"),
-  REST_CLIENT_EXCEPTION("900000", "RestClientException - coingecko service is unavailable"),
+  REST_CLIENT_EXCEPTION("900000", "RestClientException - Product Data Service is unavailable"),
   NULL_POINTER_EXCEPTION("900002","NullPointException"),
   GENERAL_EXCEPTION("999999","Unhandled Other Exception"),
   ;

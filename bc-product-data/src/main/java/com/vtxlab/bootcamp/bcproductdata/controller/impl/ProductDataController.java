@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.vtxlab.bootcamp.bcproductdata.controller.ProductDataOperation;
 import com.vtxlab.bootcamp.bcproductdata.dto.request.ProductId;
@@ -54,6 +55,9 @@ public class ProductDataController implements ProductDataOperation{
 
     List<ProductCoinsEntity> pcEntity = productdataservice.getProductCoins();
 
+    if (pcEntity.isEmpty())
+      throw new RestClientException("RestClientException - Product Data Service is unavailable");
+
     List<ProductDTO> pcDTO = pcEntity.stream() //
       .map(e -> {
         return ProductDTO.builder() //
@@ -73,6 +77,9 @@ public class ProductDataController implements ProductDataOperation{
   public ApiResponse<List<ProductDTO>> getProductStocks() {
 
     List<ProductStocksEntity> psEntity = productdataservice.getProductStocks();
+
+    if (psEntity.isEmpty())
+      throw new RestClientException("RestClientException - Product Data Service is unavailable");
 
     List<ProductDTO> psDTO = psEntity.stream() //
       .map(e -> {
@@ -129,7 +136,6 @@ public class ProductDataController implements ProductDataOperation{
    public ApiResponse<List<StockDailyDTO>> getStockDaily(String code) throws JsonProcessingException{
     
     long stockId = productdataservice.getStockId(code);
-
     List<StockDailyDTO> dailyDTOs = redisHelper.getList("stock:daily:"+ stockId, StockDailyDTO.class);
     
     if (dailyDTOs != null) {
