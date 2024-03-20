@@ -19,5 +19,4 @@ public interface ProductdataService {
 
   List<ProductStocksDailyEntity> getStockDaily(String code) throws JsonProcessingException;
 
-  long getStockId(String code);
 }

@@ -98,11 +98,6 @@ public class ProductDataServiceimpl implements ProductdataService {
     long stockId = productStockListRepository.findByStockCode(code).getId();
     return productStocksDailyRepository.findByStockId(stockId);
   }
-
-  @Override
-  public long getStockId(String code) {
-    return productStockListRepository.findByStockCode(code).getId();
-  }
   
 
   public static LocalDateTime convertDateTime(String datetime) {

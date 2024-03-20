@@ -135,8 +135,7 @@ public class ProductDataController implements ProductDataOperation{
   @Override
    public ApiResponse<List<StockDailyDTO>> getStockDaily(String code) throws JsonProcessingException{
     
-    long stockId = productdataservice.getStockId(code);
-    List<StockDailyDTO> dailyDTOs = redisHelper.getList("stock:daily:"+ stockId, StockDailyDTO.class);
+    List<StockDailyDTO> dailyDTOs = redisHelper.getList("stock:daily:"+ code, StockDailyDTO.class);
     
     if (dailyDTOs != null) {
       return ApiResponse.<List<StockDailyDTO>>builder().status(Syscode.OK).data(dailyDTOs).build();
@@ -155,7 +154,7 @@ public class ProductDataController implements ProductDataOperation{
             .build();
         }).collect(Collectors.toList());
 
-      redisHelper.set("stock:daily:"+ stockId, dailyDTOs, 60); // 60s test
+      redisHelper.set("stock:daily:"+ code, dailyDTOs, 60); // 60s test
     }
 
     return ApiResponse.<List<StockDailyDTO>>builder().status(Syscode.OK).data(dailyDTOs).build();
