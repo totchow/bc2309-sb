@@ -87,7 +87,7 @@ public class StockControllerTest {
     .andExpect(jsonPath("$.data.finnhubIndustry").value("Tech123"))
     .andExpect(jsonPath("$.data.ipo").value("1997-07-01"))
     .andExpect(jsonPath("$.data.logo").value("https://apple.com"))
-    .andExpect(jsonPath("$.data.marketCapitalization").value(345678.123789))
+    .andExpect(jsonPath("$.data.marketCapitalization").value(345678.123789*1000000))
     .andExpect(jsonPath("$.data.name").value("Apple test"))
     .andExpect(jsonPath("$.data.phone").value("9753124680"))
     .andExpect(jsonPath("$.data.shareOutstanding").value(65432.09))

@@ -53,7 +53,7 @@ public class StockController implements StockOperation {
                               .finnhubIndustry(profile2.getFinnhubIndustry())
                               .ipo(profile2.getIpo())
                               .logo(profile2.getLogo())
-                              .marketCapitalization(profile2.getMarketCapitalization())
+                              .marketCapitalization(profile2.getMarketCapitalization()*1000000)
                               .name(profile2.getName())
                               .phone(profile2.getPhone())
                               .shareOutstanding(profile2.getShareOutstanding())
