@@ -80,6 +80,12 @@ public class ProductDataServiceimpl implements ProductdataService {
         productCoinListRepository.deleteBycoinCode(c);
       }
     }
+
+    if (productIds.getStocks() != null) {
+      for (String c: productIds.getStocks()) {
+        productStockListRepository.deleteByStockCode(c);;
+      }
+    }
     return null;
   }
 

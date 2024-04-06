@@ -1,6 +1,7 @@
 package com.vtxlab.bootcamp.bcproductdata.controller.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,7 @@ public class ProductDataController implements ProductDataOperation{
           .build();
       }).collect(Collectors.toList());
 
+    Collections.sort(pcDTO);
     return ApiResponse.<List<ProductDTO>>builder().status(Syscode.OK).data(pcDTO).build();
   }
 
@@ -92,6 +94,8 @@ public class ProductDataController implements ProductDataOperation{
         .logo(e.getLogo())
         .build();
       }).collect(Collectors.toList());
+
+    Collections.sort(psDTO);
 
     return ApiResponse.<List<ProductDTO>>builder().status(Syscode.OK).data(psDTO).build();
   }
@@ -128,6 +132,7 @@ public class ProductDataController implements ProductDataOperation{
     List<ProductDTO> fullList = new ArrayList<>();
     fullList.addAll(coinList);
     fullList.addAll(stockList);
+    Collections.sort(fullList);
     return ApiResponse.<List<ProductDTO>>builder().status(Syscode.OK).data(fullList).build();
 
   }

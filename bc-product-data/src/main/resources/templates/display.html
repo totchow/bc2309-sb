@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Product Data</title>
+    </head>
+    <body>
+        <h1>Product Data Service</h1>
+        <div class="form-group">
+            <label for="IdFilter">Filter by ID:</label>
+            <input type="text" class="form-control" id="ProductIdFilter" placeholder="Enter Product ID">
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Product ID</th>
+              <th>Name</th>
+              <th>Image</th>
+              <th>Current Price (USD)</th>
+              <th>Price change percentage</th>
+              <th>Market Cap</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="productData : ${products}">
+              <td th:text="${productData.productId}"></td>
+              <td th:text="${productData.name}"></td>
+              <td><img th:src="${productData.logo}" alt="Proxsduct Image" height="50"></td>
+              <td th:text="${productData.currentPrice}"></td>
+              <td th:text="${productData.priceChangePct}"></td>
+              <td th:text="${productData.marketCap}"></td>
+            </tr>
+          </tbody>
+        </table>
+        <script>
+            document.addEventListener('DOMContentLoaded',function() {
+                var productFilter = document.getElementbyId('productFilter');
+                var productRows = document.querySelectorAll('.productRow');
+
+                productFilter.addEventListener('input', function() {
+                    var filter = productFilter.value.toUpperCase();
+
+                    productRows.forEach(function (row) {
+                        var productId = row.querySelector('td:nth-child(2)').textContent.toUpperCase();
+
+                        if (productId.indexOf(filter) > -1) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
