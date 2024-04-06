@@ -62,7 +62,7 @@ public class MarketController implements MarketOperation {
     Collections.sort(coindtos);
 
     return ApiResponse.<List<CoinDTO>>builder().status(Syscode.OK).data(coindtos).build();
-
+  
   }
 
 }
